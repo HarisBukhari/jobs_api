@@ -1,6 +1,18 @@
+const User = require("../models/User")
+const { StatusCodes } = require('http-status-codes')
+const { BadRequestError } = require('../errors')
+const jwt = require('jsonwebtoken')
+
 const register = async (req, res) => {
-    res.send('register user')
+    //client Side
+    // if (!name || !email || !password) {
+    //     throw new BadRequestError('Please Provide Name, Email and Password')
+    // }
+    const user = await User.create({ ...req.body })
+    const token = user.createJWT()
+    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
 }
+
 const login = async (req, res) => {
     res.send('login user')
 }
@@ -8,4 +20,4 @@ const login = async (req, res) => {
 module.exports = {
     register,
     login,
-}
+} 
