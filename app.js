@@ -3,8 +3,9 @@ require('express-async-errors')
 const express = require('express')
 const app = express()
 
-// connectDB
+// connectDB && middlewares
 const connectDB = require('./db/connect')
+const authenticationUser = require('./middleware/authentication')
 
 //routers
 const authRouter = require('./routes/auth')
@@ -18,8 +19,8 @@ app.use(express.json())
 // extra packages
 
 // routes
-app.use('/api/v1/auth',authRouter)
-app.use('/api/v1/jobs',jobRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/jobs', authenticationUser, jobRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
