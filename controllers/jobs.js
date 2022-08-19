@@ -5,8 +5,14 @@ const { BadRequestError, NotFoundError } = require('../errors')
 const createJob = async (req, res) => {
     //??? req.user.userId
     req.body.createdBy = req.user.userId
+    console.log(req.body)
     const job = await Job.create(req.body)
     res.status(StatusCodes.CREATED).json({ job })
+}
+
+const getAllJobsP = async (req, res) => {
+    const jobs = await Job.find().sort('createdAt')
+    res.status(StatusCodes.OK).json({ jobs, count: jobs.length })
 }
 
 const getAllJobs = async (req, res) => {
@@ -72,4 +78,5 @@ module.exports = {
     getJob,
     updateJobs,
     createJob,
+    getAllJobsP
 }

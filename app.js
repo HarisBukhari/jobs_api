@@ -1,5 +1,7 @@
 require('dotenv').config()
 require('express-async-errors')
+const Job = require('../jobs_api/models/Job')
+const { StatusCodes } = require('http-status-codes')
 const express = require('express')
 const app = express()
 
@@ -45,6 +47,12 @@ app.get('/', (req, res) => {
   res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>')
 })
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+
+//View Jobs WithOut Auth
+app.get('/api/v1/public', async (req, res) => {
+  const jobs = await Job.find().sort('createdAt')
+  res.status(StatusCodes.OK).json({ jobs, count: jobs.length })
+})
 
 // routes
 app.use('/api/v1/auth', authRouter)

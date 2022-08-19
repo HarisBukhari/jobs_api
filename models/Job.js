@@ -1,3 +1,4 @@
+const { text } = require('express')
 const mongooes = require('mongoose')
 
 const JobSchema = new mongooes.Schema({
@@ -15,6 +16,11 @@ const JobSchema = new mongooes.Schema({
         type: String,
         enum: ['interview', 'declined', 'pending'],
         default: 'pending'
+    },
+    description: {
+        type: String,
+        required: [true, 'Please Provide Descrption Name'],
+        maxlength: 1000
     },
     createdBy: {
         type: mongooes.Types.ObjectId,
