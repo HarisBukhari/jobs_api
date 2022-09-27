@@ -4,7 +4,7 @@ const Job = require('../jobs_api/models/Job')
 const { StatusCodes } = require('http-status-codes')
 const express = require('express')
 const app = express()
-const cors = require('cors')
+
 // connectDB && middlewares
 const connectDB = require('./db/connect')
 const authenticationUser = require('./middleware/authentication')
@@ -18,7 +18,6 @@ const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
 app.use(express.json())
-app.use(cors())
 // extra packages
 
 // extra security packages
