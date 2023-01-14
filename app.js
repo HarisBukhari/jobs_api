@@ -1,21 +1,21 @@
 require('dotenv').config()
 require('express-async-errors')
-const Job = require('../models/Job')
+const Job = require('./models/Job')
 const { StatusCodes } = require('http-status-codes')
 const express = require('express')
 const app = express()
 
 // connectDB && middlewares
-const connectDB = require('../db/connect')
-const authenticationUser = require('../middleware/authentication')
+const connectDB = require('./db/connect')
+const authenticationUser = require('./middleware/authentication')
 
 //routers
-const authRouter = require('../routes/auth')
-const jobRouter = require('../routes/jobs')
+const authRouter = require('./routes/auth')
+const jobRouter = require('./routes/jobs')
 
 // error handler
-const notFoundMiddleware = require('../middleware/not-found')
-const errorHandlerMiddleware = require('../middleware/error-handler')
+const notFoundMiddleware = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 app.use(express.json())
 // extra packages
@@ -73,5 +73,6 @@ const start = async () => {
     console.log(error)
   }
 }
+
 
 start()
